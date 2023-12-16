@@ -1,0 +1,13 @@
+name = "gleam_mustache"
+version = "0.1.0"
+description = "Logic-less templates"
+licences = ["Apache-2.0"]
+repository = { type = "github", user = "avdgaag", repo = "gleam_mustache" }
+links = [{ title = "Website", href = "https://github.com/avdgaag/gleam_mustache" }]
+internal_modules = ["mustache/parser"]
+
+[dependencies]
+gleam_stdlib = "~> 0.32"
+
+[dev-dependencies]
+gleeunit = "~> 1.0"
