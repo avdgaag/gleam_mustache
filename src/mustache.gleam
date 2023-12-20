@@ -34,8 +34,8 @@
 import gleam/list
 import gleam/string
 import gleam/string_builder.{type StringBuilder}
-import gleam_mustache/context.{type Context}
-import gleam_mustache/parser.{type Ast}
+import mustache/context.{type Context}
+import mustache/parser.{type Ast}
 
 /// Parse and render a template `input` using some context `vars` and return
 /// the expanded results.

@@ -1,7 +1,7 @@
 import gleeunit
 import gleeunit/should
-import gleam_mustache
-import gleam_mustache/context
+import mustache
+import mustache/context
 
 pub fn main() {
   gleeunit.main()
@@ -9,13 +9,13 @@ pub fn main() {
 
 pub fn simple_string_test() {
   "Example string"
-  |> gleam_mustache.render_string(context.dict([]))
+  |> mustache.render_string(context.dict([]))
   |> should.equal("Example string")
 }
 
 pub fn string_with_tag_test() {
   "Hello {{ name }}"
-  |> gleam_mustache.render_string(context.dict([]))
+  |> mustache.render_string(context.dict([]))
   |> should.equal("Hello ")
 }
 
@@ -23,21 +23,21 @@ pub fn string_with_tag_and_var_test() {
   let context = context.dict([#("name", context.string("john"))])
 
   "Hello {{ name }}, multiple times, {{ name }}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Hello john, multiple times, john")
 }
 
 pub fn float_values_test() {
   let context = context.dict([#("weight", context.float(12.5))])
   "Your weight is {{ weight }}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Your weight is 12.5")
 }
 
 pub fn int_values_test() {
   let context = context.dict([#("age", context.int(12))])
   "Your age is {{ age }}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Your age is 12")
 }
 
@@ -48,11 +48,11 @@ pub fn nested_values_test() {
     ])
 
   "Hello {{ person.name }}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Hello john")
 
   "Hello {{ person.age }}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Hello ")
 }
 
@@ -60,7 +60,7 @@ pub fn escapes_values_test() {
   let context = context.dict([#("name", context.string("<b>john</b>"))])
 
   "Hello {{ name }}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Hello &lt;b&gt;john&lt;/b&gt;")
 }
 
@@ -68,7 +68,7 @@ pub fn raw_variable_test() {
   let context = context.dict([#("name", context.string("<b>john</b>"))])
 
   "Hello {{{ name }}}, {{&name}}, {{ name }}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Hello <b>john</b>, <b>john</b>, &lt;b&gt;john&lt;/b&gt;")
 }
 
@@ -79,7 +79,7 @@ pub fn boolean_section_test() {
 {{#person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n")
 
   let context2 = context.dict([#("person", context.bool(True))])
@@ -88,7 +88,7 @@ pub fn boolean_section_test() {
 {{#person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context2)
+  |> mustache.render_string(context2)
   |> should.equal("Shown.\n  Never shown!\n")
 }
 
@@ -99,7 +99,7 @@ pub fn string_section_test() {
 {{#person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n  Never shown!\n")
 }
 
@@ -113,7 +113,7 @@ pub fn nested_section_test() {
 {{#person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n  Never shown!\n")
 }
 
@@ -127,7 +127,7 @@ pub fn nested_section_with_vars_test() {
 {{#person}}
   Name: {{ name }}
 {{/person}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n  Name: john\n")
 }
 
@@ -138,7 +138,7 @@ pub fn nested_section_with_vars_and_plain_vars_test() {
 {{#name}}
   Name: {{ name }}
 {{/name}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n  Name: \n")
 }
 
@@ -149,7 +149,7 @@ pub fn nested_section_with_dot_for_current_contex_test() {
 {{#name}}
   Name: {{ . }}
 {{/name}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n  Name: john\n")
 }
 
@@ -171,7 +171,7 @@ pub fn section_with_lists_test() {
 {{#beatles}}
   * {{ . }}
 {{/beatles}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n  * john\n  * paul\n  * george\n  * ringo\n")
 }
 
@@ -193,7 +193,7 @@ pub fn section_with_lists_of_complex_values_test() {
 {{#beatles}}
   * {{ name }}
 {{/beatles}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n  * john\n  * paul\n  * george\n  * ringo\n")
 }
 
@@ -204,7 +204,7 @@ pub fn empty_list_section_test() {
 {{#person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n")
 }
 
@@ -215,7 +215,7 @@ pub fn section_unknown_key_test() {
 {{#beatles}}
   Never shown!
 {{/beatles}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n")
 }
 
@@ -226,7 +226,7 @@ pub fn inverted_section_bool_test() {
 {{^person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n")
 
   let context2 = context.dict([#("person", context.bool(False))])
@@ -235,7 +235,7 @@ pub fn inverted_section_bool_test() {
 {{^person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context2)
+  |> mustache.render_string(context2)
   |> should.equal("Shown.\n  Never shown!\n")
 }
 
@@ -247,7 +247,7 @@ pub fn inverted_section_list_test() {
 {{^person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context)
+  |> mustache.render_string(context)
   |> should.equal("Shown.\n")
 
   let context2 = context.dict([#("person", context.list([]))])
@@ -256,12 +256,12 @@ pub fn inverted_section_list_test() {
 {{^person}}
   Never shown!
 {{/person}}"
-  |> gleam_mustache.render_string(context2)
+  |> mustache.render_string(context2)
   |> should.equal("Shown.\n  Never shown!\n")
 }
 
 pub fn comments_test() {
   "test {{! comment }}"
-  |> gleam_mustache.render_string(context.bool(True))
+  |> mustache.render_string(context.bool(True))
   |> should.equal("test ")
 }

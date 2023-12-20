@@ -1,7 +1,7 @@
 # Mustache
 
-[![Package Version](https://img.shields.io/hexpm/v/mustache)](https://hex.pm/packages/gleam_mustache)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/gleam_mustache/)
+[![Package Version](https://img.shields.io/hexpm/v/mustache)](https://hex.pm/packages/mustache)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/mustache/)
 
 Mustache is an implemenation of [mustache](https://mustache.github.io) in Gleam.
 It provides logic-less templates that can be used for HTML or other output
@@ -50,7 +50,7 @@ pub fn example() {
 If available on Hex this package can be added to your Gleam project:
 
 ```sh
-gleam add gleam_mustache
+gleam add mustache
 ```
 
-and its documentation can be found at <https://hexdocs.pm/gleam_mustache>.
+and its documentation can be found at <https://hexdocs.pm/mustache>.

@@ -1,9 +1,9 @@
-name = "gleam_mustache"
+name = "mustache"
 version = "0.1.0"
 description = "Logic-less templates"
 licences = ["Apache-2.0"]
-repository = { type = "github", user = "avdgaag", repo = "gleam_mustache" }
-links = [{ title = "Website", href = "https://github.com/avdgaag/gleam_mustache" }]
+repository = { type = "github", user = "avdgaag", repo = "mustache" }
+links = [{ title = "Website", href = "https://github.com/avdgaag/mustache" }]
 internal_modules = ["mustache/parser"]
 
 [dependencies]
