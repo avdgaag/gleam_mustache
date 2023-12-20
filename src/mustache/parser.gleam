@@ -33,7 +33,7 @@ fn parse_comment(input: String, ast: Ast, next: fn() -> Ast) -> Ast {
       input
       |> drop(content)
       |> parse(ast)
-    [] -> next()
+    _ -> next()
   }
 }
 
@@ -81,7 +81,7 @@ fn parse_section(input: String, ast: Ast, next: fn() -> Ast) -> Ast {
         ..ast
       ])
 
-    [] -> next()
+    _ -> next()
   }
 }
 
@@ -98,7 +98,7 @@ fn parse_raw_var(input: String, ast: Ast, next: fn() -> Ast) -> Ast {
       |> drop(content)
       |> parse([RawVar(parse_parts(parts_str)), ..ast])
     }
-    [] -> next()
+    _ -> next()
   }
 }
 
@@ -114,7 +114,7 @@ fn parse_var(input: String, ast: Ast, next: fn() -> Ast) -> Ast {
       |> drop(content)
       |> parse([Var(parse_parts(parts_str)), ..ast])
     }
-    [] -> next()
+    _ -> next()
   }
 }
 
@@ -130,7 +130,7 @@ fn parse_text(input: String, ast: Ast, next: fn() -> Ast) -> Ast {
       |> drop(content)
       |> parse([Text(content), ..ast])
     }
-    [] -> next()
+    _ -> next()
   }
 }
 
